@@ -26,7 +26,11 @@ public class WorldGuardHook {
             return;
         
         worldGuardWrapper = WorldGuardWrapper.getInstance();
-        flagPlayerParticles = worldGuardWrapper.registerFlag("player-particles", WrappedState.class, WrappedState.ALLOW).orElse(null);
+        try {
+            flagPlayerParticles = worldGuardWrapper.registerFlag("player-particles", WrappedState.class, WrappedState.ALLOW).orElse(null);
+        } catch (UnsupportedOperationException e) {
+            Bukkit.getLogger().info("Custom flags are not supported by this worldguard version.");
+        }
     }
     
     /**
